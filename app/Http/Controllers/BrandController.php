@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Item;
 use App\Brand;
-use App\Subcategory;
 
-class ItemController extends Controller
+
+class BrandController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +15,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        return view('backend.items.index');
+        return view('backend.brands.index');
     }
 
     /**
@@ -26,9 +25,8 @@ class ItemController extends Controller
      */
     public function create()
     {
-        $brands = Brand::all();
-        $subcategories = Subcategory::all();
-        return view('backend.items.create', compact('brands','subcategories'));
+
+        return view('backend.brands.create');
     }
 
     /**
@@ -39,40 +37,28 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-       // dd($request);
+        //dd($request);
 
         //Validation
         $request->validate([
-            'codeno'=>'required|min:4',
             'name'=>'required',
-            'price'=>'required',
-            'discount'=>'required',
             'photo'=>'required',
-            'description'=>'required',
-            'brand'=>'required',
-            'subcategory'=>'required',
         ]);
 
-        //if include file, upload
+        // if include file, upload
         //file upload
         $imageName = time().'.'.$request->photo->extension();
-        $request->photo->move(public_path('backend/itemimg'),$imageName);
-        $myfile = 'backend/itemimg'.$imageName;
+        $request->photo->move(public_path('backend/brandimg'),$imageName);
+        $myfile = 'backend/brandimg'.$imageName;
 
-        //Data insert
-        $item = new Item;
-        $item->codeno = $request->codeno;
-        $item->name = $request->name;
-        $item->price = $request->price;
-        $item->discount = $request->discount;
-        $item->photo = $myfile;
-        $item->description = $request->description;
-        $item->brand_id = $request->brand;
-        $item->subcategory_id = $request->subcategory;
-        $item->save();
+        //Data Insert
+        $brand = new Brand;
+        $brand->name = $request->name;
+        $brand->photo = $myfile;
+        $brand->save();
 
         //Redirect
-        return redirect()->route('items.index');
+        return redirect()->route('brands.index');
     }
 
     /**
@@ -83,7 +69,7 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-        return view('backend.items.show');
+        return view('backend.brands.show');
     }
 
     /**
@@ -94,7 +80,7 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
-        return view('backend.items.edit');
+        return view('backend.brands.edit');
     }
 
     /**
