@@ -12,3 +12,32 @@ Items Manage
  	-data insert
  	-redirect -> (index)
  -show in database
+
+ Brands Manage
+ --------------
+ -Create resource route
+ -create controller (--resource)
+ -create route list(route:list)
+ -create blade (4 for get method)
+ -call specifies view from method
+ -use store method (from action)
+ dd()
+
+ UI
+ -----
+ -filter item page ( data binding(remain))
+ -item detail page
+ -checkout page
+ -profile page(link/retrieve(remain))
+ -register page
+ -login page
+ -auth (multi role)
+
+	 Backend
+	 -Order Retrieve()
+	 	-(backend/orders)
+	 	-create view (index.blade.php)
+	 	-show table (order list)
+	 	-orderController / index
+
+	 RUD(category, subcategory)

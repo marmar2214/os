@@ -15,7 +15,9 @@ class BrandController extends Controller
      */
     public function index()
     {
-        return view('backend.brands.index');
+        $brands = Brand::all();
+        //dd($brands);
+        return view('backend.brands.index', compact('brands'));
     }
 
     /**
@@ -49,7 +51,7 @@ class BrandController extends Controller
         //file upload
         $imageName = time().'.'.$request->photo->extension();
         $request->photo->move(public_path('backend/brandimg'),$imageName);
-        $myfile = 'backend/brandimg'.$imageName;
+        $myfile = 'backend/brandimg/'.$imageName;
 
         //Data Insert
         $brand = new Brand;
@@ -80,7 +82,8 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
-        return view('backend.brands.edit');
+        $brands=Brand::find($id);
+        return view('backend.brands.edit',compact('brands'));
     }
 
     /**
@@ -92,7 +95,31 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request);
+
+        // Validation
+        $request->validate([
+            'name'=> 'required',
+            'photo'=>'sometimes',
+        ]);
+        // if include file, upload
+        if ($request->hasfile('photo')) {
+            $imageName = time().'.'.$request->photo->extension();
+            $request->photo->move(public_path('backend/brandimg'),$imageName);
+            $myfile = 'backend/brandimg/'.$imageName;
+            File::delete($imageName);
+        }else{
+            $myfile=$request->oldphoto;
+        }
+
+        //Data Update
+        $brand= Brand::find($id);
+        $brand->name = $request->name;
+        $brand->photo = $myfile;
+        $brand->save();
+
+        // Redirect
+        return redirect()->route('brands.index');
     }
 
     /**
@@ -103,6 +130,9 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $brand = Brand::find($id);
+        $brand->delete();
+
+        return redirect()->route('brands.index');
     }
 }

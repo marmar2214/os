@@ -11,15 +11,17 @@
 				<p>Product Name:</p>
 				<p>Product Code:</p>
 				<p>Product Price:</p>
-				{{-- <p>Description:</p> --}}
+				<p>Description:</p>
+				<p>Brand:</p>
+				<p>Subcategory:</p>
 			</div>
 			<div class="col-md-4">
 				<p>{{$item->name}}</p>
-				<p>{{$item->codeno}}
-					
-				</p>
+				<p>{{$item->codeno}}</p>
 				<p>{{$item->price}}</p>
-				{{-- <p>{{}}</p> --}}
+				<p>{{$item->description}}</p>
+				<p>{{$item->brand->name}}</p>
+				<p>{{$item->subcategory->name}}</p>
 			</div>
 		</div>
 	</div>

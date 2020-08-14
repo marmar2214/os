@@ -9,11 +9,18 @@ use App\Subcategory;
 
 class ItemController extends Controller
 {
+    //  public function __construct()
+    // {
+    //     $this->middleware('auth');
+    //     //also except() 
+    // }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
     {
         $items = Item::all();
@@ -120,13 +127,16 @@ class ItemController extends Controller
         //Validation
         $request->validate([
             'codeno'=>'required|min:4',
-            'name'=>'required',
+            'name'=>'required|min:5|max:35',
             'price'=>'required',
             'discount'=>'required',
             'photo'=>'sometimes',
             'description'=>'required',
             'brand'=>'required',
             'subcategory'=>'required',
+        ],[
+            'name.required' => ' The first name field is required.'
+
         ]);
 
         //if include file, upload
@@ -134,6 +144,8 @@ class ItemController extends Controller
             $imageName = time().'.'.$request->photo->extension();
             $request->photo->move(public_path('backend/itemimg'),$imageName);
             $myfile = 'backend/itemimg/'.$imageName;
+            //File::delete($imageName);
+            unlink($request->oldphoto);
         }else{
             $myfile=$request->oldphoto;
         }
@@ -168,6 +180,7 @@ class ItemController extends Controller
     {
         $item = Item::find($id);
         $item->delete();
+        unlink($item->photo);
 
         return redirect()->route('items.index');
     }

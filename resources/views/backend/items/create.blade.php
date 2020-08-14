@@ -3,61 +3,62 @@
 <div class="container-fluid">
 	<h2>Item Create (Form)</h2>
 
-	@if ($errors->any())
-		<div class="alert alert-danger">
-			<ul>
-				@foreach ($errors->all() as $error)
-				<li>{{ $error }}</li>
-				@endforeach
-			</ul>
-		</div>
-	@endif
+	
 	<div class="container">
 		<form class="" action="{{route('items.store')}}" method="post" enctype="multipart/form-data">
 			@csrf
-			<div class="form-group">
+			<div class="form-group ">
 				<label>Code No.</label>
-				<input type="text" name="codeno" class="form-control">
+				<input type="text" name="codeno" class="form-control {{ $errors->has('name') ? 'border border:danger' : ''}}" >
+				<span style="color: red;">{!! $errors->first('name', '<p class="help-block">:message</p>') !!}</span>
 			</div>
-			<div class="form-group">
+			<div class="form-group" >
 				<label>Name</label>
-				<input type="text" name="name" class="form-control">
+				<input type="text" name="name" class="form-control {{ $errors->has('name') ? 'border border:danger' : ''}}" placeholder="Enter Name">       
+				<span style="color: red;">{!! $errors->first('name', '<p class="help-block">:message</p>') !!}</span>
+
 			</div>
 			<div class="form-group">
 				<label>Price</label>
-				<input type="number" name="price" class="form-control">
+				<input type="number" name="price" class="form-control{{ $errors->has('name') ? 'border border:danger' : ''}}">
+				<span style="color: red;">{!! $errors->first('name', '<p class="help-block">:message</p>') !!}</span>
 			</div>
 			<div class="form-group">
 				<label>Discount</label>
-				<input type="number" name="discount" class="form-control">
+				<input type="number" name="discount" class="form-control{{ $errors->has('name') ? 'border border:danger' : ''}}">
+				<span style="color: red;">{!! $errors->first('name', '<p class="help-block">:message</p>') !!}</span>
 			</div>
 			<div class="form-group">
 				<label>Photo</label>
-				<input type="file" name="photo" class="form-control">
+				<input type="file" name="photo" class="form-control{{ $errors->has('name') ? 'border border:danger' : ''}}">
+				<span style="color: red;">{!! $errors->first('name', '<p class="help-block">:message</p>') !!}</span>
 			</div>
 			<div class="form-group">
 				<label>Description</label>
-				<textarea class="form-control" name="description"></textarea>
+				<textarea class="form-control {{ $errors->has('name') ? 'border border:danger' : ''}}" name="description"></textarea>
+				<span style="color: red;">{!! $errors->first('name', '<p class="help-block">:message</p>') !!}</span>
 			</div>
 			<div class="form-group">
 				<label>Brand</label>
-				<select class="form-control" name="brand">
+				<select class="form-control {{ $errors->has('name') ? 'border border:danger' : ''}}" name="brand">
 					<optgroup label="Choose brand">
 						@foreach($brands as $brand)
 							<option value="{{$brand->id}}">{{$brand->name}}</option>
 						@endforeach
 					</optgroup>
 				</select>
+				<span style="color: red;">{!! $errors->first('name', '<p class="help-block">:message</p>') !!}</span>
 			</div>
 			<div class="form-group">
 				<label>Subcategory_id</label>
-				<select class="form-control" name="subcategory">
+				<select class="form-control {{ $errors->has('name') ? 'border border:danger' : ''}}" name="subcategory">
 					<optgroup label="Choose subcategory">
 						@foreach($subcategories as $subcategory)
 						<option value="{{$subcategory->id}}">{{$subcategory->name}}</option>
 						@endforeach
 					</optgroup>
 				</select>
+				<span style="color: red;">{!! $errors->first('name', '<p class="help-block">:message</p>') !!}</span>
 			</div>
 			<div class="form-group">
 				<input type="submit" name="btnsubmit" class="btn btn-primary">
