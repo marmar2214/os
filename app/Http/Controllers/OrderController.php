@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Order;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
@@ -23,7 +24,8 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::all();  
-        return view('backend.orders.index',compact('orders'));
+        $user = User::all();
+        return view('backend.orders.index',compact('orders','user'));
     }
 
     /**
@@ -52,7 +54,7 @@ class OrderController extends Controller
         foreach ($cartArr as $row) {
            $total += ($row->price * $row->qty);
         }
-        $order=new Order;
+        $order = new Order;
         $order->voucherno = uniqid();
         $order->orderdate = date('Y-m-d');
         $order->user_id = Auth::id(); //auth id
@@ -75,7 +77,8 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Order::find($id);
+        return view('backend.orders.show',compact('order'));
     }
 
     /**
@@ -86,7 +89,7 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**

@@ -17,6 +17,6 @@ class Subcategory extends Model
 
    	public function category($value='')
    	{
-   		return $this->hasMany('App\Category');
+   		return $this->belongsTo('App\Category');
    	}
 }

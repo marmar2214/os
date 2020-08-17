@@ -39,7 +39,7 @@ Route::middleware('role:admin')->group(function (){
 
 // End Backend---------
 
-Route::resource('orders','OrderController');
+
 //Frontend
 Route::get('/','FrontendController@home')->name('home');
 
@@ -52,6 +52,11 @@ Route::get('profile','FrontendController@filter_profile')->name('profile');
 Route::get('register','FrontendController@filter_register')->name('registerpage');
 
 Route::post('/getitems','FrontendController@getItems')->name('getitems');
+
+
+
+
+Route::resource('orders','OrderController');
 
 
 

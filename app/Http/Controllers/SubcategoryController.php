@@ -16,6 +16,7 @@ class SubcategoryController extends Controller
     public function index()
     {
         $subcategories= Subcategory::all();
+
         return view('backend.subcategories.index',compact('subcategories'));
     }
 
@@ -68,8 +69,8 @@ class SubcategoryController extends Controller
      */
     public function show($id)
     {
-        $subcategory= Subcategory::find($id);
-        return view('backend.subcategories.show',compact('subcategory'));
+        // $subcategory= Subcategory::find($id);
+        return view('backend.subcategories.show');
     }
 
     /**
@@ -121,9 +122,9 @@ class SubcategoryController extends Controller
      */
     public function destroy($id)
     {
-        $subcategory = Item::find($id);
+        $subcategory = Subcategory::find($id);
         $subcategory->delete();
-        unlink($subcategory->photo);
+       
 
         return redirect()->route('subcategories.index');
     }

@@ -97,7 +97,7 @@
           <span>Categories</span>
         </a>
         <a class="nav-link" href="{{route('subcategories.index')}}">
-          <i class="fas fa-fw fa-folder"></i>
+          
           <span>Subcategories</span>
         </a>
         
