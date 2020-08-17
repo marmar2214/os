@@ -14,7 +14,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('backend.categories.index');
+        $categories = Category::all();
+       // dd($categories);
+        return view('backend.categories.index',compact('categories'));
     }
 
     /**
@@ -46,8 +48,8 @@ class CategoryController extends Controller
         //if include file, upload
         //file upload
         $imageName = time().'.'.$request->photo->extension();
-        $request->photo->move(public_path('backend/categoeyimg'),$imageName);
-        $myfile = 'backend/categoryimg'.$imageName;
+        $request->photo->move(public_path('backend/categoryimg/'),$imageName);
+        $myfile = 'backend/categoryimg/'.$imageName;
 
         //Data insert
         $category = new Category;
@@ -78,7 +80,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        return view('backend.categories.edit');
+        $categories = Category::find($id);
+        return view('backend.categories.edit',compact('categories'));
     }
 
     /**
@@ -90,7 +93,31 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request);
+
+        // Validation
+        $request->validate([
+            'name'=> 'required',
+            'photo'=>'sometimes',
+        ]);
+        // if include file, upload
+        if ($request->hasfile('photo')) {
+            $imageName = time().'.'.$request->photo->extension();
+            $request->photo->move(public_path('backend/categoryimg'),$imageName);
+            $myfile = 'backend/categoryimg/'.$imageName;
+            File::delete($imageName);
+        }else{
+            $myfile=$request->oldphoto;
+        }
+
+        //Data Update
+        $brand= Category::find($id);
+        $brand->name = $request->name;
+        $brand->photo = $myfile;
+        $brand->save();
+
+        // Redirect
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -101,6 +128,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        $category->delete();
+
+        return redirect()->route('categories.index');
     }
 }

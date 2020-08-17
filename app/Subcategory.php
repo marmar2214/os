@@ -12,6 +12,11 @@ class Subcategory extends Model
 
     public function items($value='')
    	{
-   		return $this->hasMany('App\Subcategory');
+   		return $this->hasMany('App\Item');
+   	}
+
+   	public function category($value='')
+   	{
+   		return $this->hasMany('App\Category');
    	}
 }

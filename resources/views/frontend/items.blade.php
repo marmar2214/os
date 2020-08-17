@@ -1,65 +1,67 @@
 @extends('frontendtemplate')
+@section('sidebar')
+@include('frontend.sidebar')
+
+@endsection
 
 @section('content')
 	<div class="col-lg-9">
-		<h2>Item Page Filter By brand and subcategory</h2>
-		f="#" class="list-group-item">Category 2</a>
-          <a href="#" class="list-group-item">Category 3</a>
-        </div>
-
-      </div>
-      <!-- /.col-lg-3 -->
-
-      <div class="col-lg-9">
-
-        <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
-          <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-          </ol>
-          <div class="carousel-inner" role="listbox">
-            <div class="carousel-item active">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
-            </div>
-            <div class="carousel-item">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
-            </div>
-            <div class="carousel-item">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
-            </div>
-          </div>
-          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
-
-        <div class="row">
-          @foreach($items as $item)
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <img src="{{asset($item->photo)}}" alt="" class="card-img-top">
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">{{$item->name}}</a>
-                </h4>
-                <h5>{{$item->price}} MMK</h5>
-                <p class="card-text">{{$item->description}}</p>
-              </div>
-              <div class="card-footer">
-                <a href="" class="btn btn-info btn-sm">Add To Card</a>
-                <a href="{{route('itemdetail', $item->id)}}" class="btn btn-info btn-sm">Detail</a>
-              </div>
-            </div>
-          </div>
-
-         @endforeach
+        <h2>Item Page Filter By brand and subcategory</h2>
+        <div id="myItems" class="row">
+          
         </div>
 	
 	</div>
+@endsection
+
+@section('script')
+  <script type="text/javascript">
+    $(document).ready(function () {
+
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+
+      showItems(0);
+      
+      function showItems(id) {
+        $.post("{{route('getitems')}}",{sid:id},function (response) {
+        // console.log(response);
+        var html ='';
+        $.each(response,function (i,v) {
+          var url = '/itemdetail/'+v.id;
+          html +=`<div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-100">
+          <img src="${v.photo}" alt="" class="card-img-top">
+          <div class="card-body">
+          <h4 class="card-title">
+          <a href="#">${v.name}</a>
+          </h4>
+          <h5>${v.price} MMK</h5>
+          <p class="card-text">${v.description}</p>
+          </div>
+          <div class="card-footer">
+          <a href="#" class="btn btn-info btn-sm cart" data-id="${v.id}" data-name="${v.name}" data-photo="${v.photo}" data-price="${v.price}" data-discount="${v.discount}">Add To Card</a>
+          <a href="${url}" class="btn btn-info btn-sm " >Detail</a>
+          </div>
+          </div>
+          </div>`
+        })
+        $('#myItems').html(html);
+      })
+      }
+
+
+      $('.filter').click(function () {
+        var id = $(this).data('id');
+        var name = $(this).data('name');
+        showItems(id);
+      })
+      
+    })
+  </script>
+
+  <script type="text/javascript" src="{{asset('frontend/js/script.js')}}"></script>
 @endsection

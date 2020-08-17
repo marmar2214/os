@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
     
 // });
 //Backend
-Route::middleware('auth')->group(function (){
+Route::middleware('role:admin')->group(function (){
 
 	Route::get('dashboard','BackendController@dashboard')->name ('dashboard');
 
@@ -43,13 +43,15 @@ Route::middleware('auth')->group(function (){
 //Frontend
 Route::get('/','FrontendController@home')->name('home');
 
-Route::get('itemdetail/{id}','FrontendController@itemdetail')->name('itemdetail');
+Route::get('itemdetail','FrontendController@itemdetail')->name('itemdetail');
 
 Route::get('filter_checkout','FrontendController@filter_checkout')->name('checkout');
 Route::get('filter_detail','FrontendController@filter_detail')->name('filter_detail');
 Route::get('login','FrontendController@login')->name('loginpage');
 Route::get('profile','FrontendController@filter_profile')->name('profile');
 Route::get('register','FrontendController@filter_register')->name('registerpage');
+
+Route::post('/getitems','FrontendController@getItems')->name('getitems');
 
 
 

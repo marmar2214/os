@@ -16,11 +16,13 @@
 			@csrf
 			<div class="form-group">
 				<label>Name</label>
-				<input type="text" name="name" class="form-control" >
+				<input type="text" name="name" class="form-control {{ $errors->has('name') ? 'border border:danger' : ''}}">
+				<span style="color: red;">{!! $errors->first('name', '<p class="help-block">:message</p>') !!}</span>
 			</div>
 			<div class="form-group">
 				<label>Photo</label>
-				<input type="file" name="photo" class="form-control" >
+				<input type="file" name="photo" class="form-control {{ $errors->has('name') ? 'border border:danger' : ''}}" >
+				<span style="color: red;">{!! $errors->first('photo', '<p class="help-block">:message</p>') !!}</span>
 			</div>
 			<div class="form-group">
 				<input type="submit" name="btnsubmit" class="btn-primary">

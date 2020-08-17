@@ -41,3 +41,27 @@ Items Manage
 	 	-orderController / index
 
 	 RUD(category, subcategory)
+
+
+	Frontend
+	----------
+	-filter item page(data binding)
+	-profile UI
+	-if not include (sidebar), center
+
+	Backend
+	---------
+	-Order Detail
+
+
+
+
+//Development Laravel Project
+-create subdomain
+-enter into subdomain using SSH ssh -p 7822 username@domain.me
+-git clone
+-enter into folder(cd)
+-cp .env.example .env
+-composer install
+-php artisan key:generate
+-

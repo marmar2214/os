@@ -14,10 +14,10 @@
 			</div>
 			<div class="form-group">
 				<label>Photo</label>
-				<input type="file" name="photo" class="form-control {{ $errors->has('name') ? 'border border:danger' : ''}}" >
+				<input type="file" name="photo" class="form-control {{ $errors->has('photo') ? 'border border:danger' : ''}}" >
 				<img src="{{asset($brands->photo)}}" class="img-fluid w-25 my-3">
 				<input type="hidden" name="oldphoto" value="{{$brands->photo}}">
-				<span style="color: red;">{!! $errors->first('name', '<p class="help-block">:message</p>') !!}</span>
+				<span style="color: red;">{!! $errors->first('photo', '<p class="help-block">:message</p>') !!}</span>
 				
 			</div>
 			<div class="form-group">

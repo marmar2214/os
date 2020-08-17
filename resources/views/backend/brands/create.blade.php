@@ -3,7 +3,7 @@
 <div class="container-fluid">
 
 	<h2>Brand Create(Form)</h2>
-	
+	<a href="{{route('brands.index')}}" class="btn btn-primary">Go Back</a>
 	<div class="container">
 		<form action="{{route('brands.store')}}" method="post" enctype="multipart/form-data">
 			@csrf
@@ -14,8 +14,8 @@
 			</div>
 			<div class="form-group">
 				<label>photo</label>
-				<input type="file" name="photo" class="form-control{{ $errors->has('name') ? 'border border:danger' : ''}}">
-				<span style="color: red;">{!! $errors->first('name', '<p class="help-block">:message</p>') !!}</span>
+				<input type="file" name="photo" class="form-control{{ $errors->has('photos') ? 'border border:danger' : ''}}">
+				<span style="color: red;">{!! $errors->first('photo', '<p class="help-block">:message</p>') !!}</span>
 			</div>
 			<div class="form-group">
 				<input type="submit" name="btnsubmit" class="btn btn-primary">
