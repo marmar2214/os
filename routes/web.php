@@ -23,7 +23,7 @@ Route::middleware('role:admin')->group(function (){
 
 	Route::get('dashboard','BackendController@dashboard')->name ('dashboard');
 
-	Route::resource('orders','OrderController');
+	
 
 
 	Route::resource('items','ItemController');
@@ -39,7 +39,7 @@ Route::middleware('role:admin')->group(function (){
 
 // End Backend---------
 
-
+Route::resource('orders','OrderController');
 //Frontend
 Route::get('/','FrontendController@home')->name('home');
 

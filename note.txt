@@ -65,3 +65,15 @@ Items Manage
 -composer install
 -php artisan key:generate
 -
+
+In Cpanel,
+	-create a database and user
+	-Add User To Database
+
+ -eddit (DB) config in .env file
+ -Add htaccess file
+ -SSH Terminal
+ 	-php artisan migrate
+ 	-php artisan db:seed
+ 	-
+
